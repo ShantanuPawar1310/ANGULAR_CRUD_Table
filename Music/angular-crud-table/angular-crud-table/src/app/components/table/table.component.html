@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Product Management</h2>
+
+  <!-- Product Form -->
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <label>Product Name:</label>
+    <input type="text" formControlName="name" required />
+
+    <label>Price:</label>
+    <input type="number" formControlName="price" required />
+
+    <label>Category:</label>
+    <input type="text" formControlName="category" required />
+
+    <button type="submit">{{ editingIndex !== null ? 'Update' : 'Add' }} Product</button>
+  </form>
+
+  <!-- Product Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index">
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>
+          <button (click)="editProduct(i)">Edit</button>
+          <button (click)="deleteProduct(i)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Bar Chart Section -->
+  <h2>Product Prices Chart</h2>
+  <ngx-charts-bar-vertical
+    [view]="[300, 200]"
+    [scheme]="'cool'"
+    [results]="chartData"
+    [gradient]="false"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="false"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    xAxisLabel="Product Name"
+    yAxisLabel="Price">
+  </ngx-charts-bar-vertical>
+</div>
